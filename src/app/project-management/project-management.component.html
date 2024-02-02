@@ -1,0 +1,86 @@
+<h1>Administrador de proyectos</h1>
+
+
+<button (click)="getProjects()">Buscar</button>
+
+
+
+<!-- @if(projectResults$ | async; as resultObject){
+    @for (item of resultObject; track item .id) {
+        <li>{{ item.name }}</li>
+        <li>{{ item.startDate }}</li>
+    }
+} -->
+
+<table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>ID de Encargado</th>
+        <th>Fecha de Inicio</th>
+        <th>Fecha de Finalización</th>
+        <th>Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @if(projectResults$ | async; as resultObject) {
+        @for (item of resultObject; track item.id) {
+          <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.managerId }}</td>
+            <td>{{ item.startDate }}</td>
+            <td>{{ item.endDate }}</td>
+            <td>
+                <svg
+    viewBox="0 0 1024 1024"
+    fill="#ff0000"
+    class="icon"
+    version="1.1"
+    xmlns="http://www.w3.org/2000/svg"
+    stroke="#ff0000"
+    width="24"
+    height="24"
+    class="delete-icon"
+    (click)="deleteProject(item.id)">
+    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+    <g id="SVGRepo_iconCarrier">
+      <path d="M512 897.6c-108 0-209.6-42.4-285.6-118.4-76-76-118.4-177.6-118.4-285.6 0-108 42.4-209.6 118.4-285.6 76-76 177.6-118.4 285.6-118.4 108 0 209.6 42.4 285.6 118.4 157.6 157.6 157.6 413.6 0 571.2-76 76-177.6 118.4-285.6 118.4z m0-760c-95.2 0-184.8 36.8-252 104-67.2 67.2-104 156.8-104 252s36.8 184.8 104 252c67.2 67.2 156.8 104 252 104 95.2 0 184.8-36.8 252-104 139.2-139.2 139.2-364.8 0-504-67.2-67.2-156.8-104-252-104z" fill=""></path>
+      <path d="M707.872 329.392L348.096 689.16l-31.68-31.68 359.776-359.768z" fill=""></path>
+      <path d="M328 340.8l32-31.2 348 348-32 32z" fill=""></path>
+    </g>
+  </svg>
+            </td>
+          </tr>
+        }
+      }
+    </tbody>
+  </table>
+
+
+  <div class="form-container">
+    <h2>Agregar Nuevo Proyecto</h2>
+    <form (submit)="createNewProject()">
+      <div class="form-group">
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" name="name" [(ngModel)]="projectName" autocomplete="off" required>
+      </div>
+
+      <div class="form-group">
+        <label for="startDate">Fecha de Inicio:</label>
+        <input type="date" id="startDate" name="startDate" [(ngModel)]="projectStartDate" required>
+      </div>
+
+      <div class="form-group">
+        <label for="endDate">Fecha de Fin:</label>
+        <input type="date" id="endDate" name="endDate" [(ngModel)]="projectEndDate" required>
+      </div>
+
+      <div class="form-group">
+        <label for="managerId">ID del Manager:</label>
+        <input type="number" id="managerId" name="managerId" [(ngModel)]="projectManagerId" required>
+      </div>
+
+      <button type="submit">Crear nuevo proyecto</button>
+    </form>
+  </div>
